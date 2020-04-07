@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  
   * {
     margin: 0;
     padding: 0;
@@ -29,7 +30,7 @@ export default createGlobalStyle`
 
   ::-webkit-scrollbar
   {
-    width: 1px;
+    width: 12px;
   }
 
 ::-webkit-scrollbar-track
