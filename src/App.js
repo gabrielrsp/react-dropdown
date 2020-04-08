@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wrapper, List, Title, Combo } from './styles';
+import { Wrapper, List, Title, Dropdown, Overlay } from './styles';
 import GlobalStyle from './styles/global';
 import { FaAngleDown } from "react-icons/fa";
 
@@ -17,34 +17,38 @@ function App() {
     setVisibility(!visibility);
   }
 
-  function hideOptions() {
+  function hideOption() {
     setVisibility(false);
   }
 
   return (
+    <>
+      <div className="App">
+        <GlobalStyle />
+        <h1 style={{ marginTop: "40px", display: "flex", justifyContent: "center", color: "#009999" }} >Dropdown</h1>
+        <Wrapper >
+          <Dropdown >
+            <Overlay tabIndex="0" onBlur={hideOption} >
+              <Title onClick={toggleOptions} >
+                <span>{selected}</span>
+                <div>
+                  <FaAngleDown color="#fff" size={15} />
+                </div>
+              </Title>
+              <div style={{ height: "250px", overflowY: "auto", overflowX: "hidden" }}>
+                {
+                  visibility ?
+                    options.map(option => <List key={option} onClick={e => { selectOption(option) }}>{option}</List>)
+                    : <></>
+                }
+              </div>
+            </Overlay>
+          </Dropdown>
+        </Wrapper>
+        <input placeholder={"Test OnBlur pressing Tab"} style={{ marginTop: "270px" }} type="text" />
+      </div>
 
-    <div className="App">
-      <GlobalStyle />
-      <h1 style={{ marginTop: "40px", display: "flex", justifyContent: "center", color: "#009999" }} >Dropdown</h1>
-      <Wrapper >
-        <Combo tabIndex="0" onBlur={hideOptions} >
-          <Title onClick={toggleOptions} >
-            <span>{selected}</span>
-            <div>
-              <FaAngleDown color="#fff" size={15} />
-            </div>
-          </Title>
-          <div style={{ height: "250px", overflowY: "auto", overflowX: "hidden" }}>
-              {
-                visibility ?
-                  options.map(option =>  <List key={option} onClick={e => { selectOption(option) }}>{option}</List>)
-                  : <></>
-              }
-          </div>
-        </Combo>
-      </Wrapper>
-  
-    </div>
+    </>
   );
 }
 
